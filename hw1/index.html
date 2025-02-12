@@ -80,7 +80,7 @@
       largest x and y, because everything outside of that won't be in the
       triangle. I then made sure it was in ccw order because otherwise the
       algorithm doesn't work. I found online that if you calculate the signed
-      area and it's less than 0, it's cw. S So if it's that I just switched
+      area and it's less than 0, it's cw. So if it's less than 0 I just switched
       coord 2 and 3 to make it ccw. Finally I just followed the algorithm from
       class, iterating through the bounded box and used the inside line test on
       all three triangle vectors and the point to see if it was inside.
@@ -182,22 +182,37 @@
       is in the triangle, a 1 pixel sampling in the middlew won't catch it, but
       the 4, 9, and 16 will which result in color and less jaggies.
 
+      <br />
+      <br />
+      One issue I ran into was that the line / points were not generating
+      correctly because once you upscale to a however many pixel image, the old
+      code doesn't work anymore. I basically worked around it by just filling
+      however many pixels the upscale with the same color to represent a single
+      point because these pixels all get condensed down into one.
       <h2>Task 3: Transforms</h2>
       <figure>
         <img src="images/robot.png" alt="robot" style="width: 50%" />
         <figcaption>robot putting his hands to his head in shock</figcaption>
       </figure>
+      <br />
+      <br />
+      One thing I messed up at first was ordering of the rotate and transform. I
+      accidentally put the rotate after the transform which confused me on why
+      the rotations looked so weird and wasn't rotating around the center. After
+      putting the rotation before it fixed the issue.
 
       <h2>Task 4: Barycentric coordinates</h2>
       Barycentric Coordinates is basically a way to represent coordinates inside
-      (or outside) a triangle based on some weights of the vertices. Each vertex
-      has a certain percentage that it contributes to the point which makes it
-      useful for interpolation because you can just assign values to the
-      vertices and interpolate from there. For example in the triangle below,
-      each of the vertices has a color (red, green, purple). Each point in the
-      triangle can be thought of as a weighted average of those colors. The
-      closer is it to a point the more weighted it is to that color (why the
-      parts near the vertices are pretty much the color).
+      (or outside) a triangle based on essentially how close a point is to the
+      vertices (the exact formula is the ratio of area of each triangle when
+      divided into three subtriangles). Each vertex has a certain percentage
+      that it contributes to the point which makes it useful for interpolation
+      because you can just assign values to the vertices and interpolate from
+      there. For example in the triangle below, each of the vertices has a color
+      (red, green, purple). Each point in the triangle can be thought of as a
+      weighted average of those colors. The closer is it to a point the more
+      weighted it is to that color (why the parts near the vertices are pretty
+      much the color).
       <figure>
         <img
           src="images/color_triang.png"
@@ -268,6 +283,12 @@
       there may still be high frequencies (big differences in colors), which
       bilinear sampling serves to reduce and smooth out which is why its more
       noticable.
+      <br />
+      <br />
+      I intially struggled with figuring how to actually calculate the uv
+      texture coordinates before realizing that I could just use barycentric
+      coords in the same way and weight multiplying it by the uv coordinates on
+      the vertice which I thought was super cool.
 
       <h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
       Levels sampling is similar to pixel sampling but with mip map levels.
@@ -336,6 +357,12 @@
           </tr>
         </table>
       </div>
+      <br />
+      <br />
+      One thing I struggled with at first was I noticed my images were half
+      filled with all triangles. I initially thought this was just what the
+      shape of the mesh was, but then I realized I forgot to copy the ccw, cw
+      inside line test part over which fixed it.
     </div>
   </body>
 </html>
