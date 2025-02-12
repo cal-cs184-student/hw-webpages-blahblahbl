@@ -57,9 +57,22 @@
 		-->
 
       <h2>Overview</h2>
-      Give a high-level overview of what you implemented in this homework. Think
-      about what you've built as a whole. Share your thoughts on what
-      interesting things you've learned from completing the homework.
+      I implemented code to read svg files. This includes reading in triangles,
+      points, and lines. Then implemented a way to overlay textures onto these
+      images. With these textures also implemented various antialiasing
+      techniques such as supersampling, level sampling, and point sampling.
+      Basically everything needed to render a basic image.<br />
+      <br />
+      One thing I found really interesting learning was the usefullness of
+      barycentric coordinates. I didn't know they could also be used to
+      interpolate texture coordinates, along with colors and xy coordinates
+      which I found awesome how versatile it was. Another thing I found
+      interesting was implementing the inside line test which is used to
+      determine if a pixel is inside a triangle or not. I didn't realize that it
+      only worked with a certain orientation at first so my code wasn't
+      rendering correctly and using the area to determine if it was cw or ccw
+      was cool. Also I just thought it was cool that you can put on any image as
+      a texture onto basic svg shapes and seeing how it changed.
 
       <h2>Task 1: Drawing Single-Color Triangles</h2>
       To rasterize triangles I basically followed the three line test from
